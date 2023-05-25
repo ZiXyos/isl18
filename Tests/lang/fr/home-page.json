@@ -1,0 +1,21 @@
+{
+	title: "Pokeday",
+	content: [
+		{
+			title: "Bienvenu sur Pokeday !",
+			subTitle: "Pret pour cette Aventure Journaliere ?"
+		},
+		{
+			boutons: [
+				{
+					title: "Connexion",
+					content: "Connexion"
+				},
+				{
+					title: "Deconnexion",
+					content: "Deconnexion"
+				}
+			]
+		}
+	],
+}
