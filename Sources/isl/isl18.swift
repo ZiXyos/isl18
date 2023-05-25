@@ -1,4 +1,4 @@
-public struct Isl {
+public struct Isl18 {
 
 	private let config: IslConfig;
 	public private(set) var text = "Hello, World!"

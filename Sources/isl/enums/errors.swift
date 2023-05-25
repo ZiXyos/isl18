@@ -8,6 +8,7 @@
 import Foundation
 
 public enum configError: Error {
-case fileNotFound(fname: String);
-case folderNotFound(dpath: String);
+	case fileNotFound(fname: String);
+	case folderNotFound(dpath: String);
+	case unexpected;
 }

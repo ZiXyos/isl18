@@ -31,18 +31,21 @@ public struct IslConfig {
 			}
 		}
 		
-		return .success(<#Void#>);
+		return .success(());
 	}
 	
 	public func doesLocalFolderExist(
 		with fmanager: FileManager = .default
-	) -> Result<Void, configError> {}
+	) -> Result<Void, configError> {
+		
+		return .failure(configError.unexpected);
+	}
 	
 	private func generateBundleFolder(
 		_ lang: String,
 		withBundle bundle: Bundle = .main,
 		withFManager fManager: FileManager = .default
-	) -> Result<String, configError> {
+	) -> Result<Void, configError> {
 		
 		if let bundlePath = bundle.resourcePath {
 
@@ -57,7 +60,9 @@ public struct IslConfig {
 			} catch {
 				return .failure(configError.folderNotFound(dpath: folderPath));
 			}
-			return .success(folderPath)
+			return .success(())
 		}
+		
+		return .failure(configError.unexpected);
 	}
 }
