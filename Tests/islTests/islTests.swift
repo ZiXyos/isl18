@@ -2,6 +2,7 @@ import XCTest
 @testable import Isl;
 
 final class islTests: XCTestCase {
+
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
@@ -34,6 +35,17 @@ final class islTests: XCTestCase {
 			XCTAssert(true);
 		case .failure(_):
 			XCTAssert(false);
+		}
+	}
+	
+	func testBundleIsFalse() throws {
+		let islConfig = IslConfig(lang: ["fr"]);
+		let res = islConfig.doesBundleFolderExist();
+		switch res {
+		case .success(_):
+			XCTAssert(false);
+		case .failure(_):
+			XCTAssert(true);
 		}
 	}
 }
