@@ -1,21 +1,21 @@
 {
-	title: "Pokeday",
-	content: [
+	"title": "Pokeday",
+	"content": [
 		{
-			title: "Bienvenu sur Pokeday !",
-			subTitle: "Pret pour cette Aventure Journaliere ?"
+			"title": "Bienvenu sur Pokeday !",
+			"subTitle": "Pret pour cette Aventure Journaliere ?"
 		},
 		{
-			boutons: [
+			"buttons": [
 				{
-					title: "Connexion",
-					content: "Connexion"
+					"title": "Connexion",
+					"content": "Connexion"
 				},
 				{
-					title: "Deconnexion",
-					content: "Deconnexion"
+					"title": "Deconnexion",
+					"content": "Deconnexion"
 				}
 			]
 		}
-	],
+	]
 }
