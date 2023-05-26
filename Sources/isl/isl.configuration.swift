@@ -34,12 +34,22 @@ public struct IslConfig {
 		return .success(());
 	}
 	
-	public func doesLocalFolderExist(
-		with fmanager: FileManager = .default
-	) -> Result<Void, configError> {
-		
-		return .failure(configError.unexpected);
+public func doesLocalFolderExist(
+	with fmanager: FileManager = .default
+) -> Result<Void, configError> {
+	
+	guard self.doesLangExist() else {
+		return .failure(configError.folderNotFound(dpath: "/lang"));
 	}
+
+	let langPath = fmanager.currentDirectoryPath.appending("/lang/");
+	for lang in self.lang {
+		guard isDir(fpath: langPath.appending(lang)) else {
+			return .failure(configError.folderNotFound(dpath: langPath.appending(lang)));
+		}
+	}
+	return .success(());
+}
 	
 	private func generateBundleFolder(
 		_ lang: String,
@@ -64,5 +74,30 @@ public struct IslConfig {
 		}
 		
 		return .failure(configError.unexpected);
+	}
+	
+	private func generateLocalFolder(
+		_ lang: String,
+		with fmanager: FileManager = .default
+	) -> Result<Void, configError> {
+		return .success(());
+	}
+	
+	public func doesLangExist(
+		with fmanager: FileManager = .default
+	) -> Bool {
+		let currentPath = fmanager.currentDirectoryPath;
+		print("path: \(currentPath)");
+		do {
+			let items = try fmanager.contentsOfDirectory(atPath: currentPath);
+			for item in items {
+				if isDir(fpath: currentPath.appending("/lang/")) {
+					return true;
+				};
+			}
+		} catch {
+			return false;
+		}
+		return false;
 	}
 }
