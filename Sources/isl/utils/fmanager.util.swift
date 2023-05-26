@@ -11,8 +11,6 @@ func isDir(
 	fpath: String
 ) -> Bool {
 
-	var currentPath = fmanager.currentDirectoryPath;
-	
 	var isDir: ObjCBool = false;
 	if !fmanager.fileExists(atPath: fpath, isDirectory: &isDir) && isDir.boolValue {
 		print("no dir here");

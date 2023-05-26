@@ -11,6 +11,8 @@ public struct IslConfig {
 	let lang: Array<String>;
 	public init(lang: Array<String>) {
 		self.lang = lang;
+		print("[LOG::LOCAL-FOLDER]: \(self.doesLocalFolderExist())");
+		print("[LOG::BUNDLE]: \(self.doesBundleFolderExist())");
 	}
 	
 	public func doesBundleFolderExist(
@@ -34,22 +36,22 @@ public struct IslConfig {
 		return .success(());
 	}
 	
-public func doesLocalFolderExist(
-	with fmanager: FileManager = .default
-) -> Result<Void, configError> {
-	
-	guard self.doesLangExist() else {
-		return .failure(configError.folderNotFound(dpath: "/lang"));
-	}
-
-	let langPath = fmanager.currentDirectoryPath.appending("/lang/");
-	for lang in self.lang {
-		guard isDir(fpath: langPath.appending(lang)) else {
-			return .failure(configError.folderNotFound(dpath: langPath.appending(lang)));
+	public func doesLocalFolderExist(
+		with fmanager: FileManager = .default
+	) -> Result<Void, configError> {
+		
+		guard self.doesLangExist() else {
+			return .failure(configError.folderNotFound(dpath: "/lang"));
 		}
+
+		let langPath = fmanager.currentDirectoryPath.appending("/lang/");
+		for lang in self.lang {
+			guard isDir(fpath: langPath.appending(lang)) else {
+				return .failure(configError.folderNotFound(dpath: langPath.appending(lang)));
+			}
+		}
+		return .success(());
 	}
-	return .success(());
-}
 	
 	private func generateBundleFolder(
 		_ lang: String,
@@ -76,7 +78,7 @@ public func doesLocalFolderExist(
 		return .failure(configError.unexpected);
 	}
 	
-	private func generateLocalFolder(
+	public func generateLocalFolder(
 		_ lang: String,
 		with fmanager: FileManager = .default
 	) -> Result<Void, configError> {
@@ -86,11 +88,11 @@ public func doesLocalFolderExist(
 	public func doesLangExist(
 		with fmanager: FileManager = .default
 	) -> Bool {
+
 		let currentPath = fmanager.currentDirectoryPath;
-		print("path: \(currentPath)");
 		do {
 			let items = try fmanager.contentsOfDirectory(atPath: currentPath);
-			for item in items {
+			for _ in items {
 				if isDir(fpath: currentPath.appending("/lang/")) {
 					return true;
 				};
